@@ -145,7 +145,9 @@ export class DatasetClient<Data extends Dictionary = Dictionary> extends BaseCli
 
         for (let idx = start; idx < end; idx++) {
             const entryNumber = this.generateLocalEntryName(idx);
-            items.push(await existingStoreById.datasetEntries.get(entryNumber)!.get());
+            try {
+                items.push(await existingStoreById.datasetEntries.get(entryNumber)!.get());
+            } catch (err) { }
         }
 
         existingStoreById.updateTimestamps(false);
